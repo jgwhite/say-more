@@ -2089,7 +2089,7 @@ ember-cli-preprocess-registry@^3.1.0:
     process-relative-require "^1.0.0"
     silent-error "^1.0.0"
 
-ember-cli-qunit@^4.1.1:
+ember-cli-qunit@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/ember-cli-qunit/-/ember-cli-qunit-4.2.1.tgz#89580e6eb157ee98b9eefbd48fba9bb75ea64544"
   dependencies:
