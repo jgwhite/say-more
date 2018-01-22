@@ -1,0 +1,35 @@
+<form onsubmit={{prevent-default (perform createIssue value="target")}}>
+  <label for="title">Title</label>
+  <input id="title" name="title" type="text">
+
+  <label for="body">Body</label>
+  <textarea id="body" name="body"></textarea>
+
+  <label  for="assignees">Assignees</label>
+  <select id="assignees" name="assignees" multiple>
+    <option>Alice</option>
+    <option>Bob</option>
+  </select>
+
+  <label for="labels">Labels</label>
+  <select id="labels" name="labels" multiple>
+    <option>Feature</option>
+    <option>Bug</option>
+  </select>
+
+  <label for="project">Projects</label>
+  <select id="project" name="project">
+    <option value="">No project</option>
+    <option>Some Project</option>
+    <option>Some Other Project</option>
+  </select>
+
+  <label for="milestone">Milestones</label>
+  <select id="milestone" name="milestone">
+    <option value="">No milestone</option>
+    <option>v1</option>
+    <option>v2</option>
+  </select>
+
+  <button type="submit">Submit new issue</button>
+</form>

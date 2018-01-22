@@ -7,6 +7,10 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('issues', function() {
+    this.route('new');
+    this.route('issue', { path: ':issue_id' });
+  });
 });
 
 export default Router;
