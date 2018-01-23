@@ -10,8 +10,8 @@ export default Controller.extend({
     let issue = store.createRecord('issue', {
       title: form.title.value,
       body: form.body.value,
-      assignees: form.assignees.value,
-      labels: form.labels.value,
+      assignees: getValue(form.assignees),
+      labels: getValue(form.labels),
       project: form.project.value,
       milestone: form.milestone.value,
     });
@@ -24,3 +24,16 @@ export default Controller.extend({
     }
   }).drop()
 });
+
+function map(c, f) {
+  return Array.prototype.map.call(c, f);
+}
+
+function getValue(control) {
+  if (control instanceof HTMLSelectElement && control.multiple) {
+    let selected = control.querySelectorAll('option:checked');
+    return map(selected, option => option.value);
+  } else {
+    return control.value;
+  }
+}
