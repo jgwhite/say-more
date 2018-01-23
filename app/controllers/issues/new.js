@@ -9,11 +9,8 @@ export default Controller.extend({
     let store = this.get('store');
     let issue = store.createRecord('issue', attrs);
 
-    try {
-      yield issue.save();
-      this.transitionToRoute('issues.issue', issue);
-    } catch(error) {
-      // TODO
-    }
+    yield issue.save();
+
+    this.transitionToRoute('issues.issue', issue);
   }).drop()
 });
