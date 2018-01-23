@@ -1,8 +1,13 @@
 import { helper } from '@ember/component/helper';
 
-export default helper(function([fn]) {
-  return function(event) {
+export default helper(([fn]) => {
+  return (event, ...rest) => {
     event.preventDefault();
-    fn(...arguments);
+
+    if (fn) {
+      fn(event, ...rest);
+    } else {
+      return event;
+    }
   };
 });
