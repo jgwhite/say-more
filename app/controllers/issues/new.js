@@ -8,12 +8,12 @@ export default Controller.extend({
   createIssue: task(function * (form) {
     let store = this.get('store');
     let issue = store.createRecord('issue', {
-      title: form.title.value,
-      body: form.body.value,
+      title: getValue(form.title),
+      body: getValue(form.body),
       assignees: getValue(form.assignees),
       labels: getValue(form.labels),
-      project: form.project.value,
-      milestone: form.milestone.value,
+      project: getValue(form.project),
+      milestone: getValue(form.milestone)
     });
 
     try {
@@ -25,10 +25,6 @@ export default Controller.extend({
   }).drop()
 });
 
-function map(c, f) {
-  return Array.prototype.map.call(c, f);
-}
-
 function getValue(control) {
   if (control instanceof HTMLSelectElement && control.multiple) {
     let selected = control.querySelectorAll('option:checked');
@@ -36,4 +32,8 @@ function getValue(control) {
   } else {
     return control.value;
   }
+}
+
+function map(c, f) {
+  return Array.prototype.map.call(c, f);
 }
