@@ -1,19 +1,20 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import { visit, click, fillIn } from '@ember/test-helpers';
+import fillIn from 'say-more/tests/helpers/fill-in';
+import { visit, click } from '@ember/test-helpers';
 
 module('Acceptance | say more', function(hooks) {
   setupApplicationTest(hooks);
 
   test('filing an issue', async function(assert) {
     await visit('/issues/new');
-    await fillIn('input[name="title"]', 'Example');
-    await fillIn('textarea[name="body"]', 'This is my issue…');
-    await fillIn('select[name="assignees"]', 'Alice');
-    await fillIn('select[name="labels"]', 'Feature');
-    await fillIn('select[name="project"]', 'Some Project');
-    await fillIn('select[name="milestone"]', 'v1');
-    await click('button[type="submit"]');
+    await fillIn('Title', 'Example');
+    await fillIn('Body', 'This is my issue…');
+    await fillIn('Assignees', 'Alice');
+    await fillIn('Labels', 'Feature');
+    await fillIn('Project', 'Some Project');
+    await fillIn('Milestone', 'v1');
+    await click('Submit');
 
     assert.dom('h1').hasText('Example');
   });
