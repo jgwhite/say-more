@@ -8,7 +8,7 @@ export default function(label, value) {
 function findControlForLabel(text) {
   let label = findAll('label').find(label => label.innerText.includes(text));
   if (!label) {
-    throw new Error(`Could not a label containing "${text}"`);
+    throw new Error(`Could not find a label containing "${text}"`);
   }
   let { control } = label;
   if (!control) {
