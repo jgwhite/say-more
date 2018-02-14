@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import fillIn from 'say-more/tests/helpers/fill-in';
-import { visit, click } from '@ember/test-helpers';
+import { visit } from '@ember/test-helpers';
+import { fillIn, click } from 'say-more/tests/helpers/all';
 
 module('Acceptance | say more', function(hooks) {
   setupApplicationTest(hooks);
