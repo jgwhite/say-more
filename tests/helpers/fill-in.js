@@ -1,25 +1,42 @@
-import { findAll, fillIn } from '@ember/test-helpers';
+import { find, findAll, fillIn } from '@ember/test-helpers';
 
-export default function(label, value) {
+export default function fillInByLabel(label, value) {
   let control = findControlForLabel(label);
   return fillIn(control, value);
 }
 
 function findControlForLabel(text) {
-  let label = findAll('label').find(label => label.innerText.includes(text));
-  if (!label) {
-    throw new Error(`Could not find a label containing "${text}"`);
-  }
-  let { control } = label;
-  if (!control) {
-    throw new Error(`Found a label containing "${text}" but no associated control`);
+  let label = findLabel(text);
+
+  if (label && label.control) {
+    return label.control;
   }
 
-  // TODO:
-  // - title
-  // - aria-label
-  // - aria-labelled-by
-  // - placeholder
+  let control = findControl(text);
 
-  return control;
+  if (control) {
+    return control;
+  }
+
+  if (label && !label.control) {
+    throw new Error(`Found the label "${label.innerText}" but no associated form control`);
+  }
+
+  throw new Error(`Could not find a form control labelled "${text}"`);
+}
+
+function findLabel(text) {
+  return findAll('label').find(label => label.innerText.includes(text));
+}
+
+function findControl(text) {
+  let selectors = [];
+
+  for (let tag of ['input', 'textarea', 'select']) {
+    for (let attr of ['title', 'aria-label', 'placeholder']) {
+      selectors.push(`${tag}[${attr}="${text}"]`);
+    }
+  }
+
+  return find(selectors.join(','));
 }
