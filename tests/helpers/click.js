@@ -1,14 +1,20 @@
 import { click, findAll } from '@ember/test-helpers';
 
-export default function(text) {
+export default function clickByLabel(text) {
+  let element = findElement(text);
+
+  return click(element);
+}
+
+function findElement(text) {
   let selector = 'button,a[href],[role="button"]';
   let element = findAll(selector).find(matches(text));
 
   if (!element) {
-    throw new Error(`Could not find a button containing ${text}`);
+    throw new Error(`Could not find a button containing "${text}"`);
   }
 
-  return click(element);
+  return element;
 }
 
 function matches(text) {
