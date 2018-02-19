@@ -1,7 +1,14 @@
 import { find, findAll, fillIn } from '@ember/test-helpers';
+import { calculateTabsTo } from './tabbability';
 
 export default function fillInByLabel(label, value) {
   let control = findControlForLabel(label);
+  let tabs = calculateTabsTo(control);
+
+  if (tabs < 0) {
+    throw new Error(`The user would have to tab backwards to reach the from control labelled "${label}"`);
+  }
+
   return fillIn(control, value);
 }
 

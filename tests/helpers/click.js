@@ -1,4 +1,5 @@
 import { click, findAll } from '@ember/test-helpers';
+import { calculateTabsTo } from './tabbability';
 
 export default function clickByLabel(text) {
   let element = findElement(text);
@@ -40,14 +41,4 @@ function matchesTitle(element, text) {
 function matchesAriaLabel(element, text) {
   let ariaLabel = element.getAttribute('aria-label');
   return ariaLabel && ariaLabel.includes(text);
-}
-
-function calculateTabsTo(targetElement) {
-  let { activeElement } = document;
-  // TODO: Make this less naive
-  let tabbables = findAll('*').filter(e => e.tabIndex >= 0);
-  let activeIndex = tabbables.indexOf(activeElement);
-  let targetIndex = tabbables.indexOf(targetElement);
-
-  return targetIndex - activeIndex;
 }
