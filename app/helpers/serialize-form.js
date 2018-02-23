@@ -2,7 +2,7 @@ import { helper } from '@ember/component/helper';
 
 export default helper(([fn]) => {
   return (event, ...rest) => {
-    let form = event.target;
+    let form = event.target.form || event.target;
     let result = {};
 
     forEach(form.elements, element => {

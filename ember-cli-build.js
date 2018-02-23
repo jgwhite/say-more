@@ -6,7 +6,7 @@ const keyboardClickPlugin = require('./lib/keyboard-click-babel-plugin');
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     babel: {
-      // plugins: [keyboardClickPlugin]
+      plugins: [keyboardClickPlugin]
     }
   });
 
