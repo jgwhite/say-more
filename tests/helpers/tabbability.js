@@ -7,5 +7,9 @@ export function calculateTabsTo(targetElement) {
   let activeIndex = tabbables.indexOf(activeElement);
   let targetIndex = tabbables.indexOf(targetElement);
 
+  if (targetIndex === -1) {
+    throw new Error('The target element is not tabbable, try setting tabindex');
+  }
+
   return targetIndex - activeIndex;
 }
