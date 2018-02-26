@@ -7,6 +7,8 @@ module('Acceptance | say more', function(hooks) {
   setupApplicationTest(hooks);
 
   test('filing an issue', async function(assert) {
+    server.logging = true;
+
     await visit('/issues/new');
     await fillIn('Title', 'Example');
     await fillIn('Body', 'This is my issue…');

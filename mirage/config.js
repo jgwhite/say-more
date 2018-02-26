@@ -24,5 +24,9 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
 
+  this.get('/issues/:id');
   this.post('/issues');
+
+  this.get('/labels');
+  this.post('/labels');
 }

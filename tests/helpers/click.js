@@ -2,7 +2,7 @@ import { click } from '@ember/test-helpers';
 import findButton from './find-button';
 import { calculateTabsTo } from './tabbability';
 
-export default function clickByLabel(text) {
+export default async function clickByLabel(text) {
   let element = findButton(text);
 
   if (!element) {
@@ -15,6 +15,22 @@ export default function clickByLabel(text) {
     throw new Error(`The user would have to tab backwards to reach the button containing "${text}"`);
   }
 
-  return click(element);
+  let { handledRequests } = server.pretender;
+  let before = handledRequests.length;
+
+  await click(element);
+
+  let requestCount = handledRequests.length - before;
+
+  if (requestCount > 1) {
+    let msg = `The application made ${requestCount} requests after clicking "${text}"`;
+    for (let request of handledRequests.slice(before)) {
+      msg += `\n==> ${request.method} ${request.url}`;
+      if (request.requestBody) {
+        msg += ` with ${request.requestBody}`;
+      }
+    }
+    throw new Error(msg);
+  }
 }
 
