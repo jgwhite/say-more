@@ -1,9 +1,21 @@
-export default function(/* server */) {
+export default function(server) {
 
-  /*
-    Seed your development database using your factories.
-    This data will not be loaded in your tests.
-  */
+  function store() {
+    let data = server.db.dump();
+    let json = JSON.stringify(data);
 
-  // server.createList('post', 10);
+    localStorage.mirage = json;
+  }
+
+  function load() {
+    let json = localStorage.mirage || '{}';
+    let data = JSON.parse(json);
+
+    server.db.loadData(data);
+  }
+
+  load();
+
+  server.pretender.handledRequest = store;
+
 }
