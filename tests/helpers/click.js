@@ -1,6 +1,7 @@
 import { click } from '@ember/test-helpers';
 import findButton from './find-button';
 import { calculateTabsTo } from './tabbability';
+import { trackRequests, inspectRequests } from './mirage';
 
 export default async function clickByLabel(text) {
   let element = findButton(text);
@@ -15,21 +16,14 @@ export default async function clickByLabel(text) {
     throw new Error(`The user would have to tab backwards to reach the button containing "${text}"`);
   }
 
-  let { handledRequests } = server.pretender;
-  let before = handledRequests.length;
+  let requests = await trackRequests(() => click(element));
 
-  await click(element);
+  if (requests.length > 1) {
+    let msg = `The application made ${requests.length} requests after clicking "${text}"`;
 
-  let requestCount = handledRequests.length - before;
+    msg += '\n';
+    msg += inspectRequests(requests);
 
-  if (requestCount > 1) {
-    let msg = `The application made ${requestCount} requests after clicking "${text}"`;
-    for (let request of handledRequests.slice(before)) {
-      msg += `\n==> ${request.method} ${request.url}`;
-      if (request.requestBody) {
-        msg += ` with ${request.requestBody}`;
-      }
-    }
     throw new Error(msg);
   }
 }

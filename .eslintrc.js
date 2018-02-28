@@ -36,6 +36,15 @@ module.exports = {
         browser: false,
         node: true
       }
+    },
+    // mirage files
+    {
+      files: [
+        'mirage/**/*.js'
+      ],
+      rules: {
+        'ember/avoid-leaking-state-in-ember-objects': 'off'
+      }
     }
   ]
 };

@@ -24,6 +24,6 @@ export default Controller.extend({
 
     yield issue.save();
 
-    this.transitionToRoute('issues.issue', issue.get('id'));
+    this.transitionToRoute('issues.issue', issue);
   }).drop()
 });
