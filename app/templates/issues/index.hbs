@@ -1,0 +1,5 @@
+<ul>
+  {{#each model as |issue|}}
+    <li>{{link-to issue.title "issues.issue" issue}}</li>
+  {{/each}}
+</ul>
