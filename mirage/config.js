@@ -26,6 +26,13 @@ export default function() {
 
   this.get('/issues');
   this.get('/issues/:id');
+  this.get('/issues/:id/labels', (schema, req) => {
+    let { id } = req.params;
+    let issue = schema.issues.find(id);
+    let result = issue.labels;
+
+    return result;
+  });
   this.post('/issues');
 
   this.get('/labels');

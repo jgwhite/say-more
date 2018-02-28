@@ -1,17 +1,17 @@
 <form onsubmit={{pipe (prevent-default) (serialize-form) (perform createIssue)}}>
   <div>
     <label for="title">Title</label>
-    <input id="title" name="title" type="text">
+    <input id="title" name="title" type="text" disabled={{createIssue.isRunning}}>
   </div>
 
   <div>
     <label for="body">Body</label>
-    <textarea id="body" name="body"></textarea>
+    <textarea id="body" name="body" disabled={{createIssue.isRunning}}></textarea>
   </div>
 
   <div>
     <label for="assignees">Assignees</label>
-    <select id="assignees" name="assignees" multiple>
+    <select id="assignees" name="assignees" multiple disabled={{createIssue.isRunning}}>
       <option>Alice</option>
       <option>Bob</option>
     </select>
@@ -19,15 +19,16 @@
 
   <div>
     <label for="labels">Labels</label>
-    <select id="labels" name="labels" multiple>
-      <option>Feature</option>
-      <option>Bug</option>
+    <select id="labels" name="labels" multiple disabled={{createIssue.isRunning}}>
+      {{#each labels as |label|}}
+        <option value={{label.id}}>{{label.name}}</option>
+      {{/each}}
     </select>
   </div>
 
   <div>
     <label for="project">Project</label>
-    <select id="project" name="project">
+    <select id="project" name="project" disabled={{createIssue.isRunning}}>
       <option value="">No project</option>
       <option>Some Project</option>
       <option>Some Other Project</option>
@@ -36,7 +37,7 @@
 
   <div>
     <label for="milestone">Milestone</label>
-    <select id="milestone" name="milestone">
+    <select id="milestone" name="milestone" disabled={{createIssue.isRunning}}>
       <option value="">No milestone</option>
       <option>v1</option>
       <option>v2</option>
@@ -44,6 +45,6 @@
   </div>
 
   <div>
-    <button type="submit">Submit</button>
+    <button type="submit" disabled={{createIssue.isRunning}}>{{if createIssue.isRunning "Submitting…" "Submit"}}</button>
   </div>
 </form>

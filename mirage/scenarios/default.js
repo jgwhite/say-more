@@ -8,10 +8,15 @@ export default function(server) {
   }
 
   function load() {
-    let json = localStorage.mirage || '{}';
-    let data = JSON.parse(json);
+    let json = localStorage.mirage;
 
-    server.db.loadData(data);
+    if (json) {
+      let data = JSON.parse(json);
+      server.db.loadData(data);
+    } else {
+      server.createList('label', 5);
+      store();
+    }
   }
 
   load();

@@ -4,8 +4,8 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
   store: service(),
 
-  model() {
+  model({ issue_id: id }) {
     let store = this.get('store');
-    return store.findAll('issue', { include: 'labels' });
+    return store.findRecord('issue', id, { include: 'labels' });
   }
 });

@@ -1,5 +1,25 @@
 <ul>
   {{#each model as |issue|}}
-    <li>{{link-to issue.title "issues.issue" issue}}</li>
+    <li>
+      {{link-to issue.title "issues.issue" issue}}
+
+      <span>#{{issue.id}}</span>
+
+      {{#with issue.labels as |labels|}}
+        <span>{{join ", " (map-by "name" labels)}}</span>
+      {{/with}}
+
+      {{#with issue.assignees as |assignees|}}
+        <span>{{join ", " assignees}}</span>
+      {{/with}}
+
+      {{#with issue.project as |project|}}
+        <span>{{project}}</span>
+      {{/with}}
+
+      {{#with issue.milestone as |milestone|}}
+        <span>{{milestone}}</span>
+      {{/with}}
+    </li>
   {{/each}}
 </ul>

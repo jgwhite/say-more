@@ -1,16 +1,25 @@
 import Controller from '@ember/controller';
-import { task, all } from 'ember-concurrency';
+import { readOnly } from '@ember/object/computed';
+import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   store: service(),
 
+  labels: readOnly('loadLabels.last.value'),
+
+  loadLabels: task(function * () {
+    let store = this.get('store');
+    let labels = yield store.findAll('label');
+
+    return labels;
+  }).drop().on('init'),
+
   createIssue: task(function * (attrs) {
     let store = this.get('store');
-    let allLabels = yield store.findAll('label');
-    attrs.labels = yield all(attrs.labels.map(name =>
-      allLabels.findBy('name', name) || store.createRecord('label', { name }).save()
-    ));
+
+    attrs.labels = attrs.labels.map(id => store.peekRecord('label', id));
+
     let issue = store.createRecord('issue', attrs);
 
     yield issue.save();

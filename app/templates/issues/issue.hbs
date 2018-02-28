@@ -4,7 +4,7 @@
   <dt>Assignees</dt>
   <dd>{{model.assignees}}</dd>
   <dt>Labels</dt>
-  <dd>{{#each model.labels as |label|}}{{label.name}}{{/each}}</dd>
+  <dd>{{join ", " (map-by "name" model.labels)}}</dd>
   <dt>Project</dt>
   <dd>{{model.project}}</dd>
   <dt>Milestone</dt>
